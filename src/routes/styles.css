@@ -12,7 +12,8 @@
 	--color-text: rgba(0, 0, 0, 0.7);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
-	--color-border: #fff;
+	--color-border: hsl(224, 44%, 75%);
+	--color-focus: #7b88e4;
 	--button-fill: hsl(209, 36%, 90%);
 	--button-fill-hover: hsl(209, 36%, 80%);
 	font-family: var(--font-body);

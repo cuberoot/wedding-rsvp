@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
   import TextField from './TextField.svelte';
+  import RadioInput from './RadioInput.svelte';
 
 	let coming: 'coming' | 'no-coming' | undefined = undefined;
 	let hasName = false;
@@ -21,10 +22,8 @@
 
 		{#if hasName}
 			<fieldset transition:fade class="button-radio">
-				<input type="radio" value="coming" bind:group={coming} id="coming" name="coming" />
-				<label for="coming">I am coming</label>
-				<input type="radio" id="not-coming" bind:group={coming} name="not-coming" value="not-coming" />
-				<label for="not-coming">I can't make it</label>
+        <RadioInput label="I am coming" bind: value="coming" name="coming" />
+        <RadioInput label="I can't make it" bind:group={coming} value="not-coming" name="coming" />
 			</fieldset>
 		{/if}
 
@@ -73,35 +72,6 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-	}
-
-	fieldset.button-radio > input[type='radio'] {
-		display: none;
-	}
-
-	fieldset.button-radio > input[type='radio'] + label {
-		padding: 0.5rem 1rem;
-		border: 1px solid var(--color-border);
-		border-radius: 0.2rem;
-		background-color: var(--button-fill);
-		margin-bottom: 0.5rem;
-	}
-
-	fieldset.button-radio > input[type='radio']:checked + label {
-		position: relative;
-		font-weight: bold;
-		background-color: var(--button-fill-hover);
-		border-width: 2px;
-	}
-
-	fieldset.button-radio > input[type='radio']:checked + label::after {
-		position: absolute;
-		right: 1rem;
-		content: '✔';
-	}
-
-	fieldset.button-radio > input[type='radio'] + label:hover {
-		background-color: var(--button-fill-hover);
 	}
 
 	.field-grid {

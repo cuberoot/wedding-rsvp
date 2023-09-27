@@ -31,7 +31,7 @@
 	}
 
   input[type='text']:valid {
-		box-shadow: 0 2px 0 0 green;
+		box-shadow: 0 2px 0 0 var(--color-border);
   }
 
 	input[type='text'] {
