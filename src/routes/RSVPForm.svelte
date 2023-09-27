@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-  import TextField from './TextField.svelte';
-  import RadioInput from './RadioInput.svelte';
+	import TextField from './TextField.svelte';
+	import RadioOptions from './RadioOptions.svelte';
 
 	let coming: 'coming' | 'no-coming' | undefined = undefined;
 	let hasName = false;
@@ -19,13 +19,13 @@
 		<button type="submit" disabled style="display: none" aria-hidden="true" />
 
 		<TextField label="full name" on:change={nameChange} />
+		<TextField label="email" />
 
-		{#if hasName}
-			<fieldset transition:fade class="button-radio">
-        <RadioInput label="I am coming" bind: value="coming" name="coming" />
-        <RadioInput label="I can't make it" bind:group={coming} value="not-coming" name="coming" />
-			</fieldset>
-		{/if}
+		<RadioOptions
+			bind:selected={coming}
+			options={{ coming: 'I am coming', 'not-coming': "I can't make it" }}
+			name="coming"
+		/>
 
 		{#if coming === 'coming'}
 			<div transition:fade id="coming-fields" class="field-grid">
@@ -53,11 +53,6 @@
 		box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
 	}
 
-	fieldset {
-		border: none;
-		max-width: 300px;
-	}
-
 	form {
 		display: flex;
 		position: relative;
@@ -66,12 +61,6 @@
 		align-items: center;
 		width: 100%;
 		font-size: 1.3rem;
-	}
-
-	fieldset.button-radio {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
 	}
 
 	.field-grid {

@@ -1,12 +1,15 @@
 <script lang="ts">
-	export let group = '';
-	export let label = '';
-	export let value = '';
-	export let name = '';
+  export let options: Record<string, string> = {};
+  export let name: string = '';
+  export let selected: string | undefined = undefined;
 </script>
 
-<input type="radio" {value} bind:group id={value} {name} />
-<label for={value}>{label}</label>
+<fieldset class="button-radio">
+  {#each Object.entries(options) as [optionName, label]}
+    <input type="radio" value={optionName} bind:group={selected} id={optionName} {name} />
+    <label for={optionName}>{label}</label>
+  {/each}
+</fieldset>
 
 <style>
 	input {
@@ -14,7 +17,17 @@
 		opacity: 0;
 	}
 
+  fieldset {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    border: none;
+  }
+
 	input + label {
+    position: relative;
 		padding: 0.5rem 1rem;
 		border: 1px solid var(--color-border);
 		border-radius: 0.2rem;

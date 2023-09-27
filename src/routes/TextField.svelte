@@ -1,17 +1,18 @@
 <script>
-  export let label = '';
+	export let label = '';
+	export let type = 'text';
 </script>
 
 <div class="form-group">
-  <input id="name" required pattern=".+" name="name" type="text" on:change />
-  <label class="text-label" for="name">{ label }</label>
-  <div class="hint">press <strong>Enter</strong> ↵</div>
+	<input id="name" required pattern=".+" name="name" {type} on:change />
+	<label class="text-label" for="name">{label}</label>
 </div>
 
 <style>
 	.form-group {
 		position: relative;
-    width: 100%;
+		width: 100%;
+    margin-bottom: 1.5rem;
 	}
 
 	input[type='text'] + label {
@@ -22,17 +23,18 @@
 		background-color: #fff;
 		z-index: 10;
 		transition: transform 150ms ease-out, font-size 150ms ease-out;
-    pointer-events: none;
+		pointer-events: none;
 	}
 
-	input[type='text']:focus + label, input[type='text']:valid + label {
+	input[type='text']:focus + label,
+	input[type='text']:valid + label {
 		transform: translateY(-125%);
 		font-size: 0.75em;
 	}
 
-  input[type='text']:valid {
+	input[type='text']:valid {
 		box-shadow: 0 2px 0 0 var(--color-border);
-  }
+	}
 
 	input[type='text'] {
 		position: relative;
@@ -47,12 +49,4 @@
 	input[type='text']:focus {
 		box-shadow: 0 2px 0 0 blue;
 	}
-
-  .hint {
-    font-size: 0.8rem;
-    color: #999;
-    margin-top: 0.5rem;
-    text-align: right;
-    pointer-events: none;
-  }
 </style>
