@@ -5,8 +5,8 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Wedding RSVP</title>
+	<meta name="description" content="Matt and Gemma's wedding RSVP" />
 </svelte:head>
 
 <section>
@@ -18,8 +18,9 @@
 			</picture>
 		</span>
 
-		Wedding RSVP
+		matthieu &amp; gemma
 	</h1>
+  <h3>wedding RSVP</h3>
 
 	<RSVPForm />
 </section>

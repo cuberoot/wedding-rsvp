@@ -1,21 +1,33 @@
-<script>
+<script lang="ts">
 	export let label = '';
 	export let type = 'text';
+	export let required = false;
+  export let min: number = 1;
+  export let step: number = 1;
+  export let value: string = '';
+  export let name: string = '';
+
+  let filledClass = '';
+
+  function onChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    filledClass = target.value.length > 0 ? 'filled' : '';
+  }
 </script>
 
 <div class="form-group">
-	<input id="name" required pattern=".+" name="name" {type} on:change />
-	<label class="text-label" for="name">{label}</label>
+	<input id={name} class={filledClass} {required} pattern=".+" name={name} {type} on:change={onChange} on:change {min} {step} {value} />
+	<label for={name} class={filledClass}>{label}</label>
 </div>
 
 <style>
 	.form-group {
 		position: relative;
 		width: 100%;
-    margin-bottom: 1.5rem;
+		margin: 0.8rem 0;
 	}
 
-	input[type='text'] + label {
+	input + label {
 		position: absolute;
 		left: 0;
 		top: 10px;
@@ -26,17 +38,17 @@
 		pointer-events: none;
 	}
 
-	input[type='text']:focus + label,
-	input[type='text']:valid + label {
+	input:focus + label,
+	label.filled {
 		transform: translateY(-125%);
 		font-size: 0.75em;
 	}
 
-	input[type='text']:valid {
+	input:valid {
 		box-shadow: 0 2px 0 0 var(--color-border);
 	}
 
-	input[type='text'] {
+	input {
 		position: relative;
 		padding: 12px 0px 5px 0;
 		width: 100%;
@@ -46,7 +58,7 @@
 		transition: box-shadow 150ms ease-out;
 	}
 
-	input[type='text']:focus {
+	input:focus {
 		box-shadow: 0 2px 0 0 blue;
 	}
 </style>
