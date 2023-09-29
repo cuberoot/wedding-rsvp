@@ -2,13 +2,13 @@
 	import { fade } from 'svelte/transition';
 	import TextField from './TextField.svelte';
 	import RadioOptions from './RadioOptions.svelte';
-  import Attendees from './Attendees.svelte';
+	import Attendees from './Attendees.svelte';
 
 	let coming: 'coming' | 'no-coming' | undefined = undefined;
 	let hasName = false;
 	let form: HTMLFormElement;
 
-  let attendeeCount = 1;
+	let attendeeCount = 1;
 	let reception = true;
 
 	function nameChange(event: Event) {
@@ -18,19 +18,17 @@
 		event.stopPropagation();
 	}
 
-  function onAttendeeCountChange(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const attendeeCountString = target.value;
-    attendeeCount = parseInt(attendeeCountString) || 1;
-  }
+	function onAttendeeCountChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		const attendeeCountString = target.value;
+		attendeeCount = parseInt(attendeeCountString) || 1;
+	}
 </script>
 
 <div id="rsvp-form">
-	<form method="POST" bind:this={form}>
-		<button type="submit" disabled style="display: none" aria-hidden="true" />
-
-		<TextField label="full name" required on:change={nameChange} />
-		<TextField label="email" type="email" required />
+	<form name="rsvp" method="POST" bind:this={form} data-netlify="true">
+		<TextField label="full name" name="name-1" required on:change={nameChange} />
+		<TextField label="email" name="email" type="email" required />
 
 		<RadioOptions
 			bind:selected={coming}
@@ -40,9 +38,16 @@
 		/>
 
 		{#if coming === 'coming'}
-      <TextField min={1} label="number of guests" type="number" required on:change={onAttendeeCountChange} />
+			<TextField
+				min={1}
+				name="count"
+				label="number of guests"
+				type="number"
+				required
+				on:change={onAttendeeCountChange}
+			/>
 
-      <Attendees count={attendeeCount} />
+			<Attendees count={attendeeCount} />
 
 			<h2>I will attend:</h2>
 			<div class="field-grid">
@@ -58,9 +63,9 @@
 		{#if coming === 'coming' && reception}
 			<textarea name="dietary" id="dietary" placeholder="Dietary requirements" />
 		{/if}
-    <textarea name="comments" id="comments" placeholder="Other comments" />
+		<textarea name="comments" id="comments" placeholder="Other comments" />
 
-		<button transition:fade formaction="?/register">Submit</button>
+		<input type="submit" />
 	</form>
 </div>
 
@@ -97,7 +102,7 @@
 		padding-left: 0.5rem;
 	}
 
-	button {
+	input[type="submit"] {
 		color: white;
 		background-color: rgb(26, 148, 188);
 		padding: 0.5rem 1rem;
@@ -106,17 +111,17 @@
 		margin-top: 1rem;
 	}
 
+	input[type="submit"]:hover {
+		background-color: rgba(22, 122, 155);
+	}
+
 	textarea {
 		padding: 0.5rem 1rem;
 		border-radius: 0.2rem;
 		border: 1px solid var(--color-border);
 		margin: 1rem 0;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    resize: vertical;
-	}
-
-	button:hover {
-		background-color: rgba(22, 122, 155);
+		font-family: var(--font-body);
+		font-size: 1rem;
+		resize: vertical;
 	}
 </style>

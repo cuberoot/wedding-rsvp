@@ -11,5 +11,5 @@
 </script>
 
 {#each range(count) as i}
-  <TextField label={`name ${i}`} name={`attendee-${i}`} required />
+  <TextField label={`name ${i}`} name={`name-${i}`} required />
 {/each}
