@@ -27,6 +27,8 @@
 
 <div id="rsvp-form">
 	<form name="rsvp" method="POST" bind:this={form} data-netlify="true">
+    <input type="hidden" name="form-name" value="rsvp" />
+
 		<TextField label="full name" name="name-1" required on:change={nameChange} />
 		<TextField label="email" name="email" type="email" required />
 
