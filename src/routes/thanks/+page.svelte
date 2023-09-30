@@ -17,13 +17,9 @@
 </div>
 
 <style>
-  :global(body) {
-    background-image: url("/background.jpg");
-    background-image: image-set("/background.webp", "/background.jpg");
-    background-size: cover;
-  }
-
   .container {
+    background-image: url($lib/images/background.jpg);
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
