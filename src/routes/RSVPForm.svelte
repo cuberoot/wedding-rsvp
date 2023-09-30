@@ -3,6 +3,7 @@
 	import TextField from './TextField.svelte';
 	import RadioOptions from './RadioOptions.svelte';
 	import Attendees from './Attendees.svelte';
+	import { goto } from '$app/navigation';
 
 	let coming: 'coming' | 'no-coming' | undefined = undefined;
 	let hasName = false;
@@ -23,11 +24,32 @@
 		const attendeeCountString = target.value;
 		attendeeCount = parseInt(attendeeCountString) || 1;
 	}
+
+	function onSubmit(event: Event) {
+		event.preventDefault();
+
+		const myForm = event.target as HTMLFormElement;
+		const formData = new FormData(myForm);
+
+		fetch('/', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: new URLSearchParams(formData as any).toString()
+		})
+			.then(response => {
+        if (!response.ok) {
+          throw new Error('Form submission failed');
+        }
+        console.log('Form successfully submitted');
+        goto('/thanks');
+      })
+			.catch((error) => alert(error));
+	}
 </script>
 
 <div id="rsvp-form">
-	<form name="rsvp" method="POST" bind:this={form} data-netlify="true">
-    <input type="hidden" name="form-name" value="rsvp" />
+	<form name="rsvp" method="POST" bind:this={form} data-netlify="true" on:submit={onSubmit}>
+		<input type="hidden" name="form-name" value="rsvp" />
 
 		<TextField label="full name" name="name-1" required on:change={nameChange} />
 		<TextField label="email" name="email" type="email" required />
@@ -104,7 +126,7 @@
 		padding-left: 0.5rem;
 	}
 
-	input[type="submit"] {
+	input[type='submit'] {
 		color: white;
 		background-color: rgb(26, 148, 188);
 		padding: 0.5rem 1rem;
@@ -113,7 +135,7 @@
 		margin-top: 1rem;
 	}
 
-	input[type="submit"]:hover {
+	input[type='submit']:hover {
 		background-color: rgba(22, 122, 155);
 	}
 
