@@ -32,6 +32,7 @@
 		justify-content: center;
 		align-items: center;
 		flex: 0.6;
+    padding: 1rem;
 	}
 
 	h1 {
@@ -41,9 +42,9 @@
 	.flowers {
 		display: block;
 		position: relative;
-		width: 60%;
-		height: 0;
-		padding: 0 0 calc(60% * 1008 / 1060) 0;
+		width: 50%;
+		height: auto;
+		padding: 0 0 calc(50% * 1008 / 1060) 0;
 		margin: 0 auto;
 	}
 
