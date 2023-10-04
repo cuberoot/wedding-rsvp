@@ -3,6 +3,7 @@
 	export let type = 'text';
 	export let required = false;
   export let min: number = 1;
+  export let max: number = 11;
   export let step: number = 1;
   export let value: string = '';
   export let name: string = '';
@@ -16,7 +17,7 @@
 </script>
 
 <div class="form-group">
-	<input id={name} class={filledClass} {required} pattern=".+" name={name} {type} on:change={onChange} on:change {min} {step} {value} />
+	<input id={name} class={filledClass} {required} pattern=".+" name={name} {type} on:change={onChange} on:change {min} {max} {step} {value} />
 	<label for={name} class={filledClass}>{label}</label>
 </div>
 

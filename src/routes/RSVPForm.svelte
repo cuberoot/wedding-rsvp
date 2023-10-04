@@ -12,6 +12,8 @@
 	let attendeeCount = 1;
 	let reception = true;
 
+	const MAX_ATTENDEES = 11;
+
 	function nameChange(event: Event) {
 		const target = event.target as HTMLInputElement;
 		hasName = target.value.length > 0;
@@ -36,13 +38,13 @@
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			body: new URLSearchParams(formData as any).toString()
 		})
-			.then(response => {
-        if (!response.ok) {
-          throw new Error('Form submission failed');
-        }
-        console.log('Form successfully submitted');
-        goto('/thanks');
-      })
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error('Form submission failed');
+				}
+				console.log('Form successfully submitted');
+				goto('/thanks');
+			})
 			.catch((error) => alert(error));
 	}
 </script>
@@ -62,30 +64,41 @@
 		/>
 
 		{#if coming === 'coming'}
-			<TextField
-				min={1}
-				name="count"
-				label="number of guests"
-				type="number"
-				required
-				on:change={onAttendeeCountChange}
-			/>
+			<div id="coming" in:fade>
+				<TextField
+					min={1}
+					max={MAX_ATTENDEES}
+					name="count"
+					label="number of guests"
+					type="number"
+					required
+					on:change={onAttendeeCountChange}
+				/>
 
-			<Attendees count={attendeeCount} />
+				<Attendees count={attendeeCount} />
 
-			<h2>I will attend:</h2>
-			<div class="field-grid">
-				<input type="checkbox" checked name="ceremony" id="ceremony" />
-				<label for="ceremony">Ceremony</label>
-				<input type="checkbox" name="reception" id="reception" bind:checked={reception} />
-				<label for="reception">Reception</label>
-				<input type="checkbox" checked name="ceilidh" id="ceilidh" />
-				<label for="ceilidh">Cèilidh (dance)</label>
+				<h2>I will attend:</h2>
+				<div class="field-grid">
+					<input type="checkbox" checked name="ceremony" id="ceremony" />
+					<label for="ceremony">Ceremony</label>
+					<input type="checkbox" name="reception" id="reception" bind:checked={reception} />
+					<label for="reception">Reception</label>
+					<input type="checkbox" checked name="ceilidh" id="ceilidh" />
+					<label for="ceilidh">Cèilidh (dance)</label>
+				</div>
 			</div>
+		{:else}
+			<input type="hidden" name="count" value="0" />
+			<Attendees count={0} />
+			<input type="hidden" name="ceremony" value="false" />
+			<input type="hidden" name="reception" value="false" />
+			<input type="hidden" name="ceilidh" value="false" />
 		{/if}
 
 		{#if coming === 'coming' && reception}
-			<textarea name="dietary" id="dietary" placeholder="Dietary requirements" />
+			<textarea name="dietary" id="dietary" placeholder="Dietary requirements" in:fade />
+		{:else}
+			<input type="hidden" name="dietary" value="" />
 		{/if}
 		<textarea name="comments" id="comments" placeholder="Other comments" />
 
