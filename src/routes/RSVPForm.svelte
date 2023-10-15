@@ -80,11 +80,11 @@
 				<h2>I will attend:</h2>
 				<div class="field-grid">
 					<input type="checkbox" checked name="ceremony" id="ceremony" />
-					<label for="ceremony">Ceremony</label>
+					<label for="ceremony">Ceremony <span class="time">11am</span></label>
 					<input type="checkbox" name="reception" id="reception" bind:checked={reception} />
-					<label for="reception">Reception</label>
+					<label for="reception">Reception <span class="time">2pm</span></label>
 					<input type="checkbox" checked name="ceilidh" id="ceilidh" />
-					<label for="ceilidh">Cèilidh (dance)</label>
+					<label for="ceilidh">Cèilidh (dance) <span class="time">7pm</span></label>
 				</div>
 			</div>
 		{:else}
@@ -96,7 +96,7 @@
 		{/if}
 
 		{#if coming === 'coming' && reception}
-			<textarea name="dietary" id="dietary" placeholder="Dietary requirements" in:fade />
+			<textarea name="dietary" id="dietary" placeholder="Dietary requirements (gluten-free, dairy-free, vegan, nut free)" in:fade />
 		{:else}
 			<input type="hidden" name="dietary" value="" />
 		{/if}
@@ -161,4 +161,9 @@
 		font-size: 1rem;
 		resize: vertical;
 	}
+
+  span.time {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
 </style>
